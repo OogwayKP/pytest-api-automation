@@ -1,0 +1,36 @@
+name: Daily Pytest Run
+
+on:
+  schedule:
+    - cron: '0 7 * * *' # Runs at 7:00 AM UTC daily
+  workflow_dispatch: # Allows manual triggering of the workflow
+
+jobs:
+  run-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v3
+
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'  # Replace with specific version if needed (e.g., '3.10')
+
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt  # Recommended: manage deps in requirements.txt
+
+      - name: Run tests with Pytest
+        run: pytest tests/  # Adjust path if needed (e.g., `tests/unit/`, `src/tests/`, etc.)
+
+      - name: Notify via Slack (optional)
+        if: always()  # Always runs this step, even if Pytest fails
+        run: |
+          SLACK_MESSAGE="✅ Pytest Status: ${{ job.status }} | 🔗 [Workflow Run]($GITHUB_SERVER_URL/$GITHUB_REPOSITORY/actions/runs/$GITHUB_RUN_ID)"
+          curl -X POST -H 'Content-type: application/json' \
+          --data "{\"text\":\"$SLACK_MESSAGE\"}" \
+          $SLACK_WEBHOOK_URL
+        env:
+          SLACK_WEBHOOK_URL: ${{ secrets.SLACK_WEBHOOK_URL }}  # Store this as a secret
