@@ -2,21 +2,6 @@
 
 This project uses **GitHub Actions** to run automated tests with **Pytest** daily and optionally sends test status notifications to **Slack**.
 
-## 📁 Project Structure
-project-root/
-│
-├── tests/
-│ └── sample_test.py
-│
-├── payloads/
-│ └── sample_payloads.json
-│
-├── .github/workflows/
-│ └── pytest-daily.yml # GitHub Actions workflow file
-│
-├── requirements.txt
-└── README.md\
-
 ## ⚙️ Workflow Summary
 
 The CI workflow (`pytest-daily.yml`) is triggered:
