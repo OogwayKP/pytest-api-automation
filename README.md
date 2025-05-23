@@ -5,16 +5,16 @@ This project uses **GitHub Actions** to run automated tests with **Pytest** dail
 ## 📁 Project Structure
 project-root/
 │
-├── tests/ # Contains all test files
-│ └── sample_test.py # Example test file
+├── tests/
+│ └── sample_test.py
 │
-├── payloads/ # Folder with sample JSON payloads
+├── payloads/
 │ └── sample_payloads.json
 │
 ├── .github/workflows/
 │ └── pytest-daily.yml # GitHub Actions workflow file
 │
-├── requirements.txt # Python dependencies
+├── requirements.txt
 └── README.md\
 
 ## ⚙️ Workflow Summary
